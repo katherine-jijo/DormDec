@@ -5,7 +5,7 @@ to run this:
 
 -clone the repo 
 -you can use a virtual env if you want but it gave me too many problems so now i am just downloading everything to my computer 
-- run this to get reqs to be able to run -->   pip install -r requirements.txt 
+- run this to get reqs to be able to run -->   pip install -r requirements.txt  (should be all the packages you need, if not terminal say what you are missing 
 -then in computer terminal or vscode terminal once you are in the project folder run --> npm install then run npm run dev 
 -copy and paste localhost link to chrome 
 
