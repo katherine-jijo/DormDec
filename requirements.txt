@@ -1,0 +1,9 @@
+Node
+Vite
+firebase
+localforage
+match-sorter
+sort-by
+sass
+react-toastify
+
