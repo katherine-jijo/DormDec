@@ -72,18 +72,19 @@ def leaveBlock(userID):
       #Remove block from database if it is empty
 
       elif (leaderID == str(userID)):
-         remainingStudentList = db.child('blocks').child(str(leaderID)).child('Students in Block').get().val()
+         #remainingStudentList = db.child('blocks').child(str(leaderID)).child('Students in Block').get().val()
          newLeader = blockList[0]
          db.child('users').child(newLeader).child('inBlock').set('')
          createBlock(newLeader)
 
-         for student in remainingStudentList:
+         for student in blockList:
             if (student == newLeader):
                continue
             else:
-               otherUserData = db.child('users').child(student).child('userData').get().val()
+               #otherUserData = db.child('users').child(student).child('userData').get().val()
                db.child('users').child(student).child('inBlock').set('')
-               joinBlock(otherUserData, newLeader)
+               #joinBlock(otherUserData, newLeader)
+               joinBlock(student, newLeader)
          db.child('blocks').child(str(leaderID)).remove() 
       #Change block leader to remaining user who has been in the block the longest
 
