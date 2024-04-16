@@ -1,4 +1,5 @@
 import pyrebase
+from blockFunctionality import *
 
 firebaseConfig={'apiKey': "AIzaSyBZ_Nnybektn1URt1xv-A6_FTnLJs1adzQ",
   'authDomain': "dorm-deciders.firebaseapp.com",
@@ -26,25 +27,31 @@ def setSelectionPools():
         if ((pool in freshmenBuildings) == False):                                                                      #Not the Nethies
             roomPreference = student.val()['roomType'] 
             studentArray = db.child('selectionPools').child(pool).child(gender).child(roomPreference).get().val()
-            print(studentArray)
-            if (studentArray[0] is None):
+            #print(studentArray)
+
+            if ((studentArray is None) or (studentArray[0] is None)):
                 studentArray = [student.key()]
             elif(student.key() not in studentArray):
                 studentArray.append(student.key())
+
             db.child('selectionPools').child(pool).child(gender).child(roomPreference).set(studentArray)
         
         else:                                                                                                           #Nethies
             studentArray = db.child('selectionPools').child(pool).child(gender).get().val()
-            if (studentArray[0] is None):
+
+            if ((studentArray is None) or (studentArray[0] is None)):
                 studentArray = [student.key()]
             elif(student.key() not in studentArray):
                 studentArray.append(student.key())
 
             db.child('selectionPools').child(pool).child(gender).set(studentArray)
 
-        
+
 #setSelectionPools()
 
+#TO DO: Test setSelectionPools() by resetting Alliance Hall data
+#       Implement the student preference list algorithm
+#       Implement the final student matching algorithm
 
 #INITIALIZE SELECTION POOLS
 """buildingList = {'Delft House', 'Groningen House', 'Hague House', 'Leiden House', 'Rotterdam House',
