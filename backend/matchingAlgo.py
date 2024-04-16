@@ -57,8 +57,21 @@ def setSelectionPools():
 #       Implement function to retrieve user's preference list as a sorted array of users in the same pool as them
 
 #Compares the questionnaire answers between each possible pair of users in a selection pool.
-def compareLists(selectionPool):
-    pass
+def compareLists(selectionPool, i):
+    pool = selectionPool.val()
+
+    print(pool)
+    print(i)
+
+    for user in pool:
+        #scoreMatrix = [][]
+        pass
+    if ((pool is not None) or (pool[0] is not None) or (pool[0] == '')):
+        for user in pool:
+            hofID = db.child('users').child(user).child('userID')
+            pass
+
+    #pass
 
 #Creates a preference list for every user in every selection pool.
 #The lists for each user is limited to the same selection pool the user is in.
@@ -67,14 +80,21 @@ def createPreferenceLists():
                      'Breukelen House', 'Amsterdam House', 'Stuyvesant Hall']
     setSelectionPools()
     selectionPools = db.child('selectionPools').get()
+    #i = 0
     for building in selectionPools:
         for gender in building.val():
             if building.key() not in freshmenBuildings:
-                for roomType in gender:
-                    compareLists(roomType)
+                poolList = db.child('selectionPools').child(building.key()).child(gender).get()
+                for roomType in poolList:
+                    compareLists(roomType , building.key())
+                    #i += 1
+                    #print(i)
                     #print("hi")
             else:
-                compareLists(gender)
+                pool = db.child('selectionPools').child(building.key()).child(gender).get()
+                compareLists(pool, building.key())
+                #i += 1
+                #print(i)
     
     return 0
 
@@ -94,7 +114,7 @@ createPreferenceLists()
                    'Quincy House', 'Suffolk Hall', 'Graduate'}"""
 
 """
-buildingList = ['Alliance Hall']
+buildingList = ['Constitution Hall']
 for building in buildingList:
     genderPools = {"Male" : {
         "Single" : [""],
