@@ -63,10 +63,13 @@ def compareLists(selectionPool, i):
     print(pool)
     print(i)
 
-    for user in pool:
+    for user in pool:                                                       #Set up 2D array of users in selection pool
+        if ((pool is None) or (pool[0] is None) or (pool[0] == '')):
+            continue
         #scoreMatrix = [][]
         pass
-    if ((pool is not None) or (pool[0] is not None) or (pool[0] == '')):
+
+    if ((pool is not None) or (pool[0] is not None) or (pool[0] != '')):    #Comparing lists
         for user in pool:
             hofID = db.child('users').child(user).child('userID')
             pass
