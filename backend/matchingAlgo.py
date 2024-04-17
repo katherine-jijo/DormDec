@@ -57,24 +57,34 @@ def setSelectionPools():
 #       Implement function to retrieve user's preference list as a sorted array of users in the same pool as them
 
 #Compares the questionnaire answers between each possible pair of users in a selection pool.
-def compareLists(selectionPool, i):
+def compareLists(selectionPool):
     pool = selectionPool.val()
+    #pool = selectionPool
 
-    print(pool)
-    print(i)
-
+    #print(pool)
+    #print(i)
+    #scoreMatrix = {(i,j) : [] for i in range(10) for j in range(10)}
+    #print(scoreMatrix)
+    #print(pool)
+    
+    #Idea: make an array of all users in a pool, each index being itself assigned another array of all users in the pool
+    #It's a little crude but it's the fastest to implement solution and we got like 5 days left so lets do this!
+    
     for user in pool:                                                       #Set up 2D array of users in selection pool
         if ((pool is None) or (pool[0] is None) or (pool[0] == '')):
             continue
         #scoreMatrix = [][]
         pass
 
-    if ((pool is not None) or (pool[0] is not None) or (pool[0] != '')):    #Comparing lists
+    #if ((pool is not None) or (pool[0] is not None) or (pool[0] != '')):    #Comparing lists
+    #print(type(pool))
+    if (pool[0] != ''):
         for user in pool:
-            hofID = db.child('users').child(user).child('userID')
+            print(user)
+            hofID = db.child('users').child(user).child('userID').get().val()
             pass
 
-    #pass
+    pass
 
 #Creates a preference list for every user in every selection pool.
 #The lists for each user is limited to the same selection pool the user is in.
@@ -88,16 +98,28 @@ def createPreferenceLists():
         for gender in building.val():
             if building.key() not in freshmenBuildings:
                 poolList = db.child('selectionPools').child(building.key()).child(gender).get()
+                
                 for roomType in poolList:
-                    compareLists(roomType , building.key())
+                    #print(poolList)
+                    #print(roomType.val())
+                    #print(building.key())   
+                    #print(gender)
+                    compareLists(roomType)
                     #i += 1
                     #print(i)
                     #print("hi")
+                
+                
             else:
                 pool = db.child('selectionPools').child(building.key()).child(gender).get()
-                compareLists(pool, building.key())
+                
+                #print(pool.val())
+                #print(building.key())
+                #print(gender)
+                compareLists(pool)
                 #i += 1
                 #print(i)
+                
     
     return 0
 
@@ -117,20 +139,20 @@ createPreferenceLists()
                    'Quincy House', 'Suffolk Hall', 'Graduate'}"""
 
 """
-buildingList = ['Constitution Hall']
+buildingList = ['Cambridge House', 'Dover House', 'Hampton House', 'Hempstead House', 'Jamestown House',
+                   'New York House', 'Newport House', 'Plymouth House', 'Portsmouth House', 'Providence House',
+                   'Quincy House', 'Suffolk Hall']
 for building in buildingList:
     genderPools = {"Male" : {
-        "Single" : [""],
-        "Double" : [""],
-        "Triple" : [""],
-        "Quad" : [""]
-    },
+                        'Single' : [''],
+                        'Triple' : ['']
+                        },
+        
                    "Female" : {
-        "Single" : [""],
-        "Double" : [""],
-        "Triple" : [""],
-        "Quad" : [""]
-    }}
+                       'Single' : [''],
+                       'Triple' : ['']
+                       }
+    }
 
     db.child('selectionPools').child(building).set(genderPools)
 """
