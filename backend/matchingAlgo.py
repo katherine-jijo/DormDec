@@ -59,32 +59,42 @@ def setSelectionPools():
 #Compares the questionnaire answers between each possible pair of users in a selection pool.
 def compareLists(selectionPool):
     pool = selectionPool.val()
-    #pool = selectionPool
-
-    #print(pool)
-    #print(i)
-    #scoreMatrix = {(i,j) : [] for i in range(10) for j in range(10)}
-    #print(scoreMatrix)
-    #print(pool)
-    
-    #Idea: make an array of all users in a pool, each index being itself assigned another array of all users in the pool
-    #It's a little crude but it's the fastest to implement solution and we got like 5 days left so lets do this!
-    
-    for user in pool:                                                       #Set up 2D array of users in selection pool
-        if ((pool is None) or (pool[0] is None) or (pool[0] == '')):
-            continue
-        #scoreMatrix = [][]
-        pass
-
-    #if ((pool is not None) or (pool[0] is not None) or (pool[0] != '')):    #Comparing lists
-    #print(type(pool))
     if (pool[0] != ''):
-        for user in pool:
-            print(user)
-            hofID = db.child('users').child(user).child('userID').get().val()
+        #pool = selectionPool
+
+        #print(pool)
+        #print(i)
+        #scoreMatrix = {(i,j) : [] for i in range(10) for j in range(10)}
+        #print(scoreMatrix)
+        #print(pool)
+    
+        #Idea: make an array of all users in a pool, each index being itself assigned another array of all users in the pool
+        #It's a little crude but it's the fastest to implement solution and we got like 5 days left so lets do this!
+        userArray = []
+        for user in pool:                                                       #Set up 2D array of users in selection pool
+            userArray.append(user)
+
+            #scoreMatrix = [][]
             pass
 
-    pass
+        scoreArray = []
+        for i in range(len(userArray)):
+            col = []
+            for j in range(len(userArray)):
+                col.append(-1)
+            scoreArray.append(col)
+
+        #print(scoreArray)
+        #if ((pool is not None) or (pool[0] is not None) or (pool[0] != '')):    #Comparing lists
+        #print(type(pool))
+        if (pool[0] != ''):
+            for user in userArray:
+                print(user)
+                #print(userArray.index(user))
+                #hofID = db.child('users').child(str(user)).child('userID').get().val()
+                pass
+
+        pass
 
 #Creates a preference list for every user in every selection pool.
 #The lists for each user is limited to the same selection pool the user is in.
@@ -123,7 +133,9 @@ def createPreferenceLists():
     
     return 0
 
-createPreferenceLists()
+testPool = db.child('selectionPools').child('Alliance Hall').child('Male').child('Double').get()
+compareLists(testPool)
+#createPreferenceLists()
 
 
 
@@ -155,4 +167,29 @@ for building in buildingList:
     }
 
     db.child('selectionPools').child(building).set(genderPools)
+"""
+
+"""
+###### FOR TESTING PURPOSES #######
+auth = firebase.auth()
+
+email = 'test+19@gmail.com'
+password = '123456'
+#user2 = auth.create_user_with_email_and_password(email2, pass2)
+user = auth.create_user_with_email_and_password(email, password)
+auth.user = None
+data = {
+  "name": "Avatar Korra",
+  "gender" : "Female",
+  "inBlock" : "",
+  "roomType" : "Double",
+  "standing": "Senior",
+  "buildingPreference" : ['Alliance Hall', 'Enterprise Hall', 'Estabrook Hall'],
+  "userData" : {
+      "email" : "test+19@gmail.com",
+      "localId" : user['localId']
+  },
+  "userID": 200420142
+}
+db.child("users").child(user['localId']).set(data)
 """
