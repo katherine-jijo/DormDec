@@ -57,7 +57,14 @@ def setSelectionPools():
 #       Implement function to retrieve user's preference list as a sorted array of users in the same pool as them
 
 #Compares the questionnaire answers between each possible pair of users in a selection pool.
-def compareLists(selectionPool):
+def compareLists(user, otherUser):
+    userId = db.child('users').child(str(user)).child('userID').get().val()
+    otherUserId = db.child('users').child(str(otherUser)).child('userID').get().val()
+    pass
+    return 1
+
+#Creates the score lists for the users in a selection pool.
+def createScoreLists(selectionPool):
     pool = selectionPool.val()
     if (pool[0] != ''):
         #pool = selectionPool
@@ -76,37 +83,51 @@ def compareLists(selectionPool):
 
             #scoreMatrix = [][]
             pass
+        
+        #for
 
         scoreArray = []
         for i in range(len(userArray)):
             col = []
             for j in range(len(userArray)):
                 col.append(-1)
+            #for
+            
             scoreArray.append(col)
+            
+        #for
 
         #print(scoreArray)
         #if ((pool is not None) or (pool[0] is not None) or (pool[0] != '')):    #Comparing lists
         #print(type(pool))
         i = 0
         for user in userArray:
-            print(user)
+            #print(user)
             #print(userArray.index(user))
-            hofID = db.child('users').child(str(user)).child('userID').get().val()
+            hofID = db.child('users').child(str(user)).child('userID').get().val()                              #User's hofID is used to store questionnaire answers
             #studentResponses = db.child('studentQuestionnaireResponses').child(str(hofID)).get().val()         #Not final/won't work until questionnaire stuff is done
 
             j = 0
             #insert for loop here
             for otherUser in userArray:
-                if ((otherUser == user) or (scoreArray[j][i] != -1)):
-                    scoreArray[i][j] = scoreArray[j][i]                                                         #No need to compare against people that have already been compared against
+                if ((otherUser == user) or (scoreArray[i][j] != -1)):                                           #No need to compare against people that have already been compared against or user's self
                     j = j + 1
                     continue
+                result = compareLists(user, otherUser)
+                scoreArray[i][j] = result
+                scoreArray[j][i] = result
+                
+                j = j + 1
+                #if
 
             i = i + 1
+            #call modified quicksort here
+            #for
 
-            pass
-
+        #for
         pass
+    
+    #if
 
 #Creates a preference list for every user in every selection pool.
 #The lists for each user is limited to the same selection pool the user is in.
@@ -126,7 +147,7 @@ def createPreferenceLists():
                     #print(roomType.val())
                     #print(building.key())   
                     #print(gender)
-                    compareLists(roomType)
+                    createScoreLists(roomType)
                     #i += 1
                     #print(i)
                     #print("hi")
@@ -138,7 +159,7 @@ def createPreferenceLists():
                 #print(pool.val())
                 #print(building.key())
                 #print(gender)
-                compareLists(pool)
+                createScoreLists(pool)
                 #i += 1
                 #print(i)
                 
@@ -146,7 +167,7 @@ def createPreferenceLists():
     return 0
 
 testPool = db.child('selectionPools').child('Alliance Hall').child('Male').child('Double').get()
-compareLists(testPool)
+createScoreLists(testPool)
 #createPreferenceLists()
 
 
