@@ -16,7 +16,7 @@ db = firebase.database()
 
 #Orders all users into their appropriate selection pool.
 def setSelectionPools():
-    freshmenBuildings = ['Delft House', 'Groningen House', 'Hague House', 'Leiden House', 'Rotterdam House',    #These buildings only have 1 room type, so they only have 2 selection pools each
+    freshmenBuildings = ['Delft House', 'Groningen House', 'Hague House', 'Leiden House', 'Rotterdam House',            #These buildings only have 1 room type, so they only have 2 selection pools each
                          'Tilburg House', 'Urtrecht House', 'Orange House', 'Rensselaer House',
                      'Breukelen House', 'Amsterdam House', 'Stuyvesant Hall']
     
@@ -29,7 +29,6 @@ def setSelectionPools():
         if ((pool in freshmenBuildings) == False):                                                                      #Not the freshmen buildings
             roomPreference = student.val()['roomType'] 
             studentArray = db.child('selectionPools').child(pool).child(gender).child(roomPreference).get().val()
-            #print(studentArray)
 
             if ((studentArray is None) or (studentArray[0] is None) or (studentArray[0] == "")):
                 studentArray = [student.key()]
@@ -49,12 +48,6 @@ def setSelectionPools():
             db.child('selectionPools').child(pool).child(gender).set(studentArray)
 
 
-#setSelectionPools()
-
-#TO DO: Test setSelectionPools() by resetting Alliance Hall data - CHECK
-#       Implement the student preference list algorithm - WIP
-#       Implement the final student matching algorithm
-#       Implement function to retrieve user's preference list as a sorted array of users in the same pool as them
 
 #Compares the questionnaire answers between each possible pair of users in a selection pool.
 def compareLists(user, otherUser):
@@ -67,22 +60,10 @@ def compareLists(user, otherUser):
 def createScoreLists(selectionPool):
     pool = selectionPool.val()
     if (pool[0] != ''):
-        #pool = selectionPool
-
-        #print(pool)
-        #print(i)
-        #scoreMatrix = {(i,j) : [] for i in range(10) for j in range(10)}
-        #print(scoreMatrix)
-        #print(pool)
-    
-        #Idea: make an array of all users in a pool, each index being itself assigned another array of all users in the pool
-        #It's a little crude but it's the fastest to implement solution and we got like 5 days left so lets do this!
         userArray = []
-        for user in pool:                                                       #Set up 2D array of users in selection pool
+        
+        for user in pool:                                                                                       #Set up 2D array of users in selection pool
             userArray.append(user)
-
-            #scoreMatrix = [][]
-            pass
         
         #for
 
@@ -91,28 +72,24 @@ def createScoreLists(selectionPool):
             col = []
             for j in range(len(userArray)):
                 col.append(-1)
+                
             #for
-            
             scoreArray.append(col)
             
         #for
-
-        #print(scoreArray)
-        #if ((pool is not None) or (pool[0] is not None) or (pool[0] != '')):    #Comparing lists
-        #print(type(pool))
+        
         i = 0
         for user in userArray:
-            #print(user)
-            #print(userArray.index(user))
             hofID = db.child('users').child(str(user)).child('userID').get().val()                              #User's hofID is used to store questionnaire answers
             #studentResponses = db.child('studentQuestionnaireResponses').child(str(hofID)).get().val()         #Not final/won't work until questionnaire stuff is done
 
             j = 0
-            #insert for loop here
             for otherUser in userArray:
+                
                 if ((otherUser == user) or (scoreArray[i][j] != -1)):                                           #No need to compare against people that have already been compared against or user's self
                     j = j + 1
                     continue
+                
                 result = compareLists(user, otherUser)
                 scoreArray[i][j] = result
                 scoreArray[j][i] = result
@@ -136,41 +113,31 @@ def createPreferenceLists():
                      'Breukelen House', 'Amsterdam House', 'Stuyvesant Hall']
     setSelectionPools()
     selectionPools = db.child('selectionPools').get()
-    #i = 0
+    
     for building in selectionPools:
         for gender in building.val():
             if building.key() not in freshmenBuildings:
                 poolList = db.child('selectionPools').child(building.key()).child(gender).get()
                 
                 for roomType in poolList:
-                    #print(poolList)
-                    #print(roomType.val())
-                    #print(building.key())   
-                    #print(gender)
                     createScoreLists(roomType)
-                    #i += 1
-                    #print(i)
-                    #print("hi")
-                
+                    
                 
             else:
                 pool = db.child('selectionPools').child(building.key()).child(gender).get()
                 
-                #print(pool.val())
-                #print(building.key())
-                #print(gender)
                 createScoreLists(pool)
-                #i += 1
-                #print(i)
-                
     
     return 0
 
-testPool = db.child('selectionPools').child('Alliance Hall').child('Male').child('Double').get()
-createScoreLists(testPool)
+#testPool = db.child('selectionPools').child('Alliance Hall').child('Male').child('Double').get()
+#createScoreLists(testPool)
 #createPreferenceLists()
 
-
+#TO DO: Test setSelectionPools() by resetting Alliance Hall data - CHECK
+#       Implement the student preference list algorithm - WIP
+#       Implement the final student matching algorithm
+#       Implement function to retrieve user's preference list as a sorted array of users in the same pool as them
 
 
 
