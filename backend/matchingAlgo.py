@@ -87,12 +87,24 @@ def compareLists(selectionPool):
         #print(scoreArray)
         #if ((pool is not None) or (pool[0] is not None) or (pool[0] != '')):    #Comparing lists
         #print(type(pool))
-        if (pool[0] != ''):
-            for user in userArray:
-                print(user)
-                #print(userArray.index(user))
-                #hofID = db.child('users').child(str(user)).child('userID').get().val()
-                pass
+        i = 0
+        for user in userArray:
+            print(user)
+            #print(userArray.index(user))
+            hofID = db.child('users').child(str(user)).child('userID').get().val()
+            #studentResponses = db.child('studentQuestionnaireResponses').child(str(hofID)).get().val()         #Not final/won't work until questionnaire stuff is done
+
+            j = 0
+            #insert for loop here
+            for otherUser in userArray:
+                if ((otherUser == user) or (scoreArray[j][i] != -1)):
+                    scoreArray[i][j] = scoreArray[j][i]                                                         #No need to compare against people that have already been compared against
+                    j = j + 1
+                    continue
+
+            i = i + 1
+
+            pass
 
         pass
 
