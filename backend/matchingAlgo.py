@@ -1,3 +1,5 @@
+import random
+from copy import deepcopy
 import pyrebase
 from blockFunctionality import *
 
@@ -47,14 +49,67 @@ def setSelectionPools():
 
             db.child('selectionPools').child(pool).child(gender).set(studentArray)
 
+######################################## QUICK SORT ##########################################
 
+# Function to find the partition position
+def partition(scoreArray, userArrayCopy, low, high):
+
+    # Choose the rightmost element as pivot
+    pivot = scoreArray[high]
+
+    # Pointer for greater element
+    i = low - 1
+
+    # Traverse through all elements
+    # compare each element with pivot
+    for j in range(low, high):
+        if scoreArray[j] <= pivot:
+
+            # If element smaller than pivot is found
+            # swap it with the greater element pointed by i
+            i = i + 1
+
+            # Swapping element at i with element at j
+            (scoreArray[i], scoreArray[j]) = (scoreArray[j], scoreArray[i])
+            (userArrayCopy[i], userArrayCopy[j]) = (userArrayCopy[j], userArrayCopy[i])
+        #if
+
+    # Swap the pivot element with
+    # the greater element specified by i
+    (scoreArray[i + 1], scoreArray[high]) = (scoreArray[high], scoreArray[i + 1])
+    (userArrayCopy[i + 1], userArrayCopy[high]) = (userArrayCopy[high], userArrayCopy[i + 1])
+    #for
+
+    # Return the position from where partition is done
+    return i + 1
+
+#A modified quicksort
+def quickSort(scoreArray, userArrayCopy, low, high):
+    if low < high:
+
+        # Find pivot element such that
+        # element smaller than pivot are on the left
+        # element greater than pivot are on the right
+        pivot = partition(scoreArray, userArrayCopy, low, high)
+
+        # Recursive call on the left of pivot
+        quickSort(scoreArray, userArrayCopy, low, pivot - 1)
+
+        # Recursive call on the right of pivot
+        quickSort(scoreArray, userArrayCopy, pivot + 1, high)
+    #if
+    
+######################################## QUICK SORT ##########################################
 
 #Compares the questionnaire answers between each possible pair of users in a selection pool.
 def compareLists(user, otherUser):
     userId = db.child('users').child(str(user)).child('userID').get().val()
     otherUserId = db.child('users').child(str(otherUser)).child('userID').get().val()
-    pass
-    return 1
+
+    # INSERT COMPARISON CODE HERE
+
+    result = random.randint(1, 101)
+    return result
 
 #Creates the score lists for the users in a selection pool.
 def createScoreLists(selectionPool):
@@ -80,8 +135,8 @@ def createScoreLists(selectionPool):
         
         i = 0
         for user in userArray:
-            hofID = db.child('users').child(str(user)).child('userID').get().val()                              #User's hofID is used to store questionnaire answers
-            #studentResponses = db.child('studentQuestionnaireResponses').child(str(hofID)).get().val()         #Not final/won't work until questionnaire stuff is done
+            #hofID = db.child('users').child(str(user)).child('userID').get().val()                              #User's hofID is used to store questionnaire answers
+            #studentResponses = db.child('studentQuestionnaireResponses').child(str(hofID)).get().val()           #Not final/won't work until questionnaire stuff is done
 
             j = 0
             for otherUser in userArray:
@@ -97,12 +152,34 @@ def createScoreLists(selectionPool):
                 j = j + 1
                 #if
 
+            userArrayCopy = deepcopy(userArray)
+            quickSort(scoreArray[i], userArrayCopy, 0, len(scoreArray) - 1)
+
+            scoreArray[i] = list(reversed(scoreArray[i]))
+            userArrayCopy = list(reversed(userArrayCopy))
+            #scoreArray.pop()
+            userArrayCopy.pop()
+            
+
+            data = {
+                'scoreArray' : scoreArray[i],
+                'topUserList' : userArrayCopy
+
+            }
+            #db.child('preferenceLists').child(str(hofID)).set(data)                                             #Do not uncomment until questionnaire stuff is done
+
+            """
+            print(user + ", USER " + str(db.child('users').child(user).child('name').get().val()) + " PRIORITY LIST")
+            print(userArrayCopy)
+            print(scoreArray[i])
+            print("\n")
+            """
+
             i = i + 1
-            #call modified quicksort here
+
             #for
 
         #for
-        pass
     
     #if
 
@@ -128,14 +205,18 @@ def createPreferenceLists():
                 
                 createScoreLists(pool)
     
-    return 0
+    #return 0
 
-#testPool = db.child('selectionPools').child('Alliance Hall').child('Male').child('Double').get()
-#createScoreLists(testPool)
+testPool = db.child('selectionPools').child('Alliance Hall').child('Male').child('Double').get()
+
+def dueDateMatching():
+    pass
+
+createScoreLists(testPool)
 #createPreferenceLists()
 
 #TO DO: Test setSelectionPools() by resetting Alliance Hall data - CHECK
-#       Implement the student preference list algorithm - WIP
+#       Implement the student preference list algorithm - CHECK(ish)
 #       Implement the final student matching algorithm
 #       Implement function to retrieve user's preference list as a sorted array of users in the same pool as them
 
