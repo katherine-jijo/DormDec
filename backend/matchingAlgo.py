@@ -34,21 +34,28 @@ def setSelectionPools():
 
             if ((studentArray is None) or (studentArray[0] is None) or (studentArray[0] == "")):
                 studentArray = [student.key()]
+            #if
             elif(student.key() not in studentArray):
                 studentArray.append(student.key())
-
+            #elif
+            
             db.child('selectionPools').child(pool).child(gender).child(roomPreference).set(studentArray)
+        #if
         
         else:                                                                                                           #freshmen buildings
             studentArray = db.child('selectionPools').child(pool).child(gender).get().val()
 
             if ((studentArray is None) or (studentArray[0] is None) or (studentArray[0] == "")):
                 studentArray = [student.key()]
+            #if
             elif(student.key() not in studentArray):
                 studentArray.append(student.key())
-
+            #elif
+            
             db.child('selectionPools').child(pool).child(gender).set(studentArray)
-
+        #else
+    #for
+        
 ######################################## QUICK SORT ##########################################
 
 # Function to find the partition position
@@ -142,14 +149,14 @@ def createScoreLists(selectionPool):
             for otherUser in userArray:
                 
                 if ((otherUser == user) or (scoreArray[i][j] != -1)):                                           #No need to compare against people that have already been compared against or user's self
-                    j = j + 1
+                    j += 1
                     continue
                 
                 result = compareLists(user, otherUser)
                 scoreArray[i][j] = result
                 scoreArray[j][i] = result
                 
-                j = j + 1
+                j += 1
                 #if
 
             userArrayCopy = deepcopy(userArray)
@@ -157,7 +164,7 @@ def createScoreLists(selectionPool):
 
             scoreArray[i] = list(reversed(scoreArray[i]))
             userArrayCopy = list(reversed(userArrayCopy))
-            #scoreArray.pop()
+            scoreArray[i].pop()
             userArrayCopy.pop()
             
 
@@ -175,7 +182,7 @@ def createScoreLists(selectionPool):
             print("\n")
             """
 
-            i = i + 1
+            i += 1
 
             #for
 
@@ -207,18 +214,70 @@ def createPreferenceLists():
     
     #return 0
 
-testPool = db.child('selectionPools').child('Alliance Hall').child('Male').child('Double').get()
+#Returns a given user's preference list
+def getUserList(user):
+    userID = db.child('users').child(str(user)).child('userID').get().val()
+    return db.child('preferenceLists').child(str(userID)).child('topUserList').get().val()
 
+#Fills new blocks created during dueDateMatching()
+def fillBlock(roomType, blockID):
+    if roomType == "Double":
+        i = 2
+    elif roomType == "Triple":
+        i = 3
+    elif roomType == "Quad":
+        i = 4
+    blockList = getBlockStudentList(str(blockID))
+    leader = blockList[0]
+    leaderList = getUserList(leader)
+    j = 0
+    while (len(blockList) != i):
+        if db.child('users').child(leaderList[j]).child('inBlock').get().val() == '':
+            joinBlock(leaderList[j], blockID)
+        j += 1
+        #if
+        
+    #while
+
+#Automatically matches together all unassigned blocks to rooms and matches together all remaining students not in blocks
 def dueDateMatching():
-    pass
+    blockList = getAllBlockList()
+    for block in blockList:
+        #call room matching function                                                                            #Assign rooms to all pre-existing blocks
+        #db.child('blocks').child(block).remove()                                                                #Delete blocks after they are matched  #DONT UNCOMMENT UNTIL EVERYTHING IS DONE
+        pass
+    
+    createPreferenceLists()
+    userList = db.child('users').get()
+    for user in userList:                                                                                       #Place remaining students into blocks
+        student = user.val()
+        if (student['inBlock'] != ''):                                                                          #Students already in blocks are already accounted for
+            continue
+        #if
+        
+        createBlock(student['userData']['localId'])
+        if student['roomType'] == 'Single':
+            continue
+        #if
+        else:
+            fillBlock(student['roomType'], student['userData']['localId'])                                      #Populate new block with users
+        #else
+    
+        #call room matching function                                                                            #Match new block to rooms
+        #db.child('blocks').child(student['userData']['localId']).remove()                                       #Delete the new block once matched to a room   #DONT UNCOMMENT UNTIL EVERYTHING IS DONE
+    #for
 
-createScoreLists(testPool)
+
+#dueDateMatching()
+#testPool = db.child('selectionPools').child('Alliance Hall').child('Male').child('Double').get()
+#createScoreLists(testPool)
 #createPreferenceLists()
+
 
 #TO DO: Test setSelectionPools() by resetting Alliance Hall data - CHECK
 #       Implement the student preference list algorithm - CHECK(ish)
-#       Implement the final student matching algorithm
-#       Implement function to retrieve user's preference list as a sorted array of users in the same pool as them
+#       Implement the final student matching algorithm - CHECK(ish)
+#       Implement function to retrieve user's preference list as a sorted array of users in the same pool as them - CHECK
 
 
 
