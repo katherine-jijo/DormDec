@@ -313,23 +313,23 @@ for building in buildingList:
 ###### FOR TESTING PURPOSES #######
 auth = firebase.auth()
 
-email = 'test+19@gmail.com'
+email = 'test+20@gmail.com'
 password = '123456'
 #user2 = auth.create_user_with_email_and_password(email2, pass2)
 user = auth.create_user_with_email_and_password(email, password)
 auth.user = None
 data = {
-  "name": "Avatar Korra",
-  "gender" : "Female",
+  "name": "Peter Griffin",
+  "gender" : "Male",
   "inBlock" : "",
   "roomType" : "Double",
   "standing": "Senior",
-  "buildingPreference" : ['Alliance Hall', 'Enterprise Hall', 'Estabrook Hall'],
+  "buildingPreference" : ['Alliance Hall', 'Bill of Rights Hall', 'Constitution Hall'],
   "userData" : {
-      "email" : "test+19@gmail.com",
+      "email" : "test+20@gmail.com",
       "localId" : user['localId']
   },
-  "userID": 200420142
+  "userID": 611391225
 }
 db.child("users").child(user['localId']).set(data)
 """
