@@ -309,27 +309,26 @@ for building in buildingList:
     db.child('selectionPools').child(building).set(genderPools)
 """
 
-"""
+
 ###### FOR TESTING PURPOSES #######
 auth = firebase.auth()
 
-email = 'test+20@gmail.com'
+email = 'test+23@gmail.com'
 password = '123456'
 #user2 = auth.create_user_with_email_and_password(email2, pass2)
 user = auth.create_user_with_email_and_password(email, password)
 auth.user = None
 data = {
-  "name": "Peter Griffin",
-  "gender" : "Male",
+  "name": "Greta Graduate",
+  "gender" : "Female",
   "inBlock" : "",
-  "roomType" : "Double",
-  "standing": "Senior",
-  "buildingPreference" : ['Alliance Hall', 'Bill of Rights Hall', 'Constitution Hall'],
+  "roomType" : "Single",
+  "standing": "Graduate",
+  "buildingPreference" : ['Graduate', 'Graduate', 'Graduate'],
   "userData" : {
-      "email" : "test+20@gmail.com",
+      "email" : "test+23@gmail.com",
       "localId" : user['localId']
   },
-  "userID": 611391225
+  "userID": 473829949
 }
 db.child("users").child(user['localId']).set(data)
-"""
