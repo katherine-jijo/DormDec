@@ -16,12 +16,64 @@ firebase=pyrebase.initialize_app(firebaseConfig) #Initializes the firebase app
 
 db = firebase.database()
 
+#Updates user data in the database to include data from the questionnaire
+def saveStudentInfo():
+    userList = db.child('users').get()
+    for userData in userList:
+        user = userData.val()
+        userID = user['userID']
+        userQuestionnaire = db.child('studentQuestionnaireResponses').child(str(userID)).get().val()
+        user['name'] = userQuestionnaire['user']['name']
+
+        user['standing'] = userQuestionnaire['user']['classStanding']
+        if (user['standing'] == 'Graduate/Law/Med'):
+            user['standing'] = 'Graduate'
+        #if
+            
+        user['gender'] = userQuestionnaire['user']['sex']
+        if (user['gender'] not in ['Male', 'Female']):
+            user['gender'] = userQuestionnaire['preferences']['roommateSex']
+        #if
+
+        user['roomType'] = userQuestionnaire['housing']['roomType']
+        if (user['roomType'] == 'Single Room'):
+            user['roomType'] = 'Single'
+        elif (user['roomType'] == 'Double Room'):
+            user['roomType'] = 'Double'
+        elif (user['roomType'] == 'Triple Room'):
+            user['roomType'] = 'Triple'
+        elif (user['roomType'] == 'Quad Room'):
+            user['roomType'] = 'Quad'
+        #if/else
+
+        userBuildingPreference = []
+
+        if (user['standing'] != 'Graduate'):
+            userBuildingPreference.append(userQuestionnaire['housing']['firstChoice'])
+            userBuildingPreference.append(userQuestionnaire['housing']['secondChoice'])
+            userBuildingPreference.append(userQuestionnaire['housing']['thirdChoice'])
+        #if
+        else:
+            userBuildingPreference = ['Graduate', 'Graduate', 'Graduate']
+        user['buildingPreference'] = userBuildingPreference
+        #else
+        
+        if (('inBlock' not in user) or (user['inBlock'] == '')):
+            user['inBlock'] = ''
+
+        #if
+
+        db.child('users').child(userData.key()).set(user)
+
+    #for
+
 #Orders all users into their appropriate selection pool.
 def setSelectionPools():
     freshmenBuildings = ['Delft House', 'Groningen House', 'Hague House', 'Leiden House', 'Rotterdam House',            #These buildings only have 1 room type, so they only have 2 selection pools each
                          'Tilburg House', 'Urtrecht House', 'Orange House', 'Rensselaer House',
                      'Breukelen House', 'Amsterdam House', 'Stuyvesant Hall']
     
+    saveStudentInfo()
     userList = db.child('users').get()
     
     for student in userList:
@@ -55,7 +107,7 @@ def setSelectionPools():
             db.child('selectionPools').child(pool).child(gender).set(studentArray)
         #else
     #for
-        
+
 ######################################## QUICK SORT ##########################################
 
 # Function to find the partition position
@@ -277,21 +329,11 @@ def dueDateMatching():
         #db.child('blocks').child(student['userData']['localId']).remove()                                       #Delete the new block once matched to a room   #DONT UNCOMMENT UNTIL EVERYTHING IS DONE
     #for
 
-
-#dueDateMatching()
-#testPool = db.child('selectionPools').child('Alliance Hall').child('Male').child('Double').get()
-#createScoreLists(testPool)
-#createPreferenceLists()
-
-
 #TO DO: Test setSelectionPools() by resetting Alliance Hall data - CHECK
 #       Implement the student preference list algorithm - CHECK
 #       Implement the final student matching algorithm - CHECK(ish)
 #       Implement function to retrieve user's preference list as a sorted array of users in the same pool as them - CHECK
-#       Implement function to save student info to database using info from questionnaires - WIP
-
-
-
+#       Implement function to save student info to database using info from questionnaires - CHECK
 
 #INITIALIZE SELECTION POOLS
 """buildingList = {'Delft House', 'Groningen House', 'Hague House', 'Leiden House', 'Rotterdam House',
@@ -324,23 +366,20 @@ for building in buildingList:
 ###### FOR TESTING PURPOSES #######
 auth = firebase.auth()
 
-email = 'test+23@gmail.com'
+email = 'test+25@gmail.com'
 password = '123456'
 #user2 = auth.create_user_with_email_and_password(email2, pass2)
 user = auth.create_user_with_email_and_password(email, password)
 auth.user = None
+
 data = {
-  "name": "Greta Graduate",
-  "gender" : "Female",
-  "inBlock" : "",
-  "roomType" : "Single",
-  "standing": "Graduate",
-  "buildingPreference" : ['Graduate', 'Graduate', 'Graduate'],
   "userData" : {
-      "email" : "test+23@gmail.com",
+      "email" : "test+25@gmail.com",
       "localId" : user['localId']
   },
-  "userID": 473829949
+  "userID": 200536279
 }
 db.child("users").child(user['localId']).set(data)
 """
+
+saveStudentInfo()
