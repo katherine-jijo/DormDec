@@ -112,10 +112,29 @@ def quickSort(scoreArray, userArrayCopy, low, high):
 def compareLists(user, otherUser):
     userId = db.child('users').child(str(user)).child('userID').get().val()
     otherUserId = db.child('users').child(str(otherUser)).child('userID').get().val()
-
-    # INSERT COMPARISON CODE HERE
-
-    result = random.randint(1, 101)
+    result = 0
+    
+    userQuestionnaire = db.child('studentQuestionnaireResponses').child(userId).get().val()
+    otherQuestionnaire = db.child('studentQuestionnaireResponses').child(otherUserId).get().val()
+    
+    #Compare second and third building choices
+    if (userQuestionnaire['housing']['secondChoice'] == otherQuestionnaire['housing']['secondChoice']):
+        result += 1
+        
+    #if
+        
+    if (userQuestionnaire['housing']['thirdChoice'] == otherQuestionnaire['housing']['thirdChoice']):
+        result += 1
+        
+    #if
+    
+    #Compare remaining preferences
+    for preference in userQuestionnaire['preferences']:
+        if ((userQuestionnaire['preferences'][preference] == otherQuestionnaire['preferences'][preference]) or (userQuestionnaire['preferences'][preference] == 'No Preference') or (otherQuestionnaire['preferences'][preference] == ' No Preference')):
+            result += 1
+            
+        #if
+    #for
     return result
 
 #Creates the score lists for the users in a selection pool.
@@ -142,7 +161,7 @@ def createScoreLists(selectionPool):
         
         i = 0
         for user in userArray:
-            #hofID = db.child('users').child(str(user)).child('userID').get().val()                              #User's hofID is used to store questionnaire answers
+            hofID = db.child('users').child(str(user)).child('userID').get().val()                              #User's hofID is used to store questionnaire answers
             #studentResponses = db.child('studentQuestionnaireResponses').child(str(hofID)).get().val()           #Not final/won't work until questionnaire stuff is done
 
             j = 0
@@ -173,14 +192,7 @@ def createScoreLists(selectionPool):
                 'topUserList' : userArrayCopy
 
             }
-            #db.child('preferenceLists').child(str(hofID)).set(data)                                             #Do not uncomment until questionnaire stuff is done
-
-            """
-            print(user + ", USER " + str(db.child('users').child(user).child('name').get().val()) + " PRIORITY LIST")
-            print(userArrayCopy)
-            print(scoreArray[i])
-            print("\n")
-            """
+            db.child('preferenceLists').child(str(hofID)).set(data)                                             #Do not uncomment until questionnaire stuff is done
 
             i += 1
 
@@ -211,8 +223,6 @@ def createPreferenceLists():
                 pool = db.child('selectionPools').child(building.key()).child(gender).get()
                 
                 createScoreLists(pool)
-    
-    #return 0
 
 #Returns a given user's preference list
 def getUserList(user):
@@ -275,9 +285,10 @@ def dueDateMatching():
 
 
 #TO DO: Test setSelectionPools() by resetting Alliance Hall data - CHECK
-#       Implement the student preference list algorithm - CHECK(ish)
+#       Implement the student preference list algorithm - CHECK
 #       Implement the final student matching algorithm - CHECK(ish)
 #       Implement function to retrieve user's preference list as a sorted array of users in the same pool as them - CHECK
+#       Implement function to save student info to database using info from questionnaires - WIP
 
 
 
@@ -309,7 +320,7 @@ for building in buildingList:
     db.child('selectionPools').child(building).set(genderPools)
 """
 
-
+"""
 ###### FOR TESTING PURPOSES #######
 auth = firebase.auth()
 
@@ -332,3 +343,4 @@ data = {
   "userID": 473829949
 }
 db.child("users").child(user['localId']).set(data)
+"""
