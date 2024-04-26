@@ -5,13 +5,13 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import DormDecidersLogo from "../assets/dormLogo.png";
 
-
 export default function LoginComponent() {
   let navigate = useNavigate();
-  const [credentails, setCredentials] = useState({});
+  const [credentials, setCredentials] = useState({ email: '', password: '', studentID: '' });
+
   const login = async () => {
     try {
-      let res = await LoginAPI(credentails.email, credentails.password);
+      let res = await LoginAPI(credentials.email, credentials.password, credentials.studentID);
       toast.success("Signed In to Dorm Deciders!");
       localStorage.setItem("userEmail", res.user.email);
       navigate("/home");
@@ -34,7 +34,7 @@ export default function LoginComponent() {
         <div className="auth-inputs">
           <input
             onChange={(event) =>
-              setCredentials({ ...credentails, email: event.target.value })
+              setCredentials({ ...credentials, email: event.target.value })
             }
             type="email"
             className="common-input"
@@ -42,11 +42,19 @@ export default function LoginComponent() {
           />
           <input
             onChange={(event) =>
-              setCredentials({ ...credentails, password: event.target.value })
+              setCredentials({ ...credentials, password: event.target.value })
             }
             type="password"
             className="common-input"
             placeholder="Password"
+          />
+          <input
+            onChange={(event) =>
+              setCredentials({ ...credentials, studentID: event.target.value })
+            }
+            type="text"
+            className="common-input"
+            placeholder="Hofstra Student ID"
           />
         </div>
         <button onClick={login} className="login-btn">
