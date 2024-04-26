@@ -44,7 +44,7 @@ const Home = () => {
           <p>Elevate your dorm life with Dorm Deciders. From questionnaire to match to confirmation, we've got you covered. Start your journey now!</p>
         </div>
         <div className="buttons">
-          <button className="rounded-rect-btn">Questionnaire</button>
+          <QuestionnaireButton />
           <button className="rounded-rect-btn">Student Search</button>
           <ConfirmationButton onConfirmation={handleConfirmation} />
           {showConfirmationOptions && (
@@ -59,5 +59,18 @@ const Home = () => {
     </div>
   );
 };
+
+
+const QuestionnaireButton = () => {
+    const openGoogleForm = () => {
+      window.open('https://docs.google.com/forms/d/e/1FAIpQLScgA-inXShLiwMvLYxTeNf1j24HoeIeJkrNPn1LfcR2OlKndg/viewform?usp=sf_link', '_blank');
+    };
+  
+    return (
+      <button className="rounded-rect-btn" onClick={openGoogleForm}>
+        Questionnaire
+      </button>
+    );
+  };
 
 export default Home;
