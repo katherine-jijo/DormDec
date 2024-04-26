@@ -2,11 +2,16 @@
     display: flex;
     padding: 20px;
     height: 100vh;
-  }
+    background-image: url('../assets/homepg.png'); /* Use a relative path */
+    background-size: cover;
+    background-position: center;
+    align-items: flex-start; /* Align items to the top */
+}
+
   
   .logo-container {
-    margin-top: 10px;
-    margin-left: 10px;
+    margin-top: 20px;
+    margin-left: 20px;
   }
   
   .logo {
@@ -15,20 +20,34 @@
   
 
   .content-wrapper {
-    width: 50%;
+    width: 90%;
     text-align: center;
   }
   
   .slogan {
-    margin-bottom: 80px;
+    margin-bottom: 200x;
   }
-  
   .buttons {
     display: flex;
     flex-direction: column;
+    align-items: center;
   }
   
-  button { //spacing 
-    margin-bottom: 80px;
+  .rounded-rect-btn {
+    background-color: #f0f0f0;
+    border: none;
+    color: #323;
+    padding: 40px 170px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 40px;
+    margin: 10px 0;
+    cursor: pointer;
+    border-radius: 5px; /* Adjust this value to change the roundness */
   }
   
+  
+  .buttons button:hover {
+    background-color: #0056b3; /* Change the background color on hover */
+  }

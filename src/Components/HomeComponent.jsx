@@ -3,6 +3,7 @@ import DormDecidersLogo from '../assets/dormLogo.png';
 import '../Sass/HomeComponent.scss';
 
 
+
 const Home = () => {
   return (
     <div className="home-wrapper">
@@ -15,9 +16,9 @@ const Home = () => {
           <p>Elevate your dorm life with Dorm Deciders. From questionnaire to match to confirmation, we've got you covered. Start your journey now!</p>
         </div>
         <div className="buttons">
-          <button>Questionnaire</button>
-          <button>Student Search</button>
-          <button>Confirmation</button>
+        <button className="rounded-rect-btn">Questionnaire</button>
+        <button className="rounded-rect-btn">Student Search</button>
+        <button className="rounded-rect-btn">Confirmation</button>
         </div>
       </div>
     </div>
