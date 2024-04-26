@@ -1,0 +1,34 @@
+.home-wrapper {
+    display: flex;
+    padding: 20px;
+    height: 100vh;
+  }
+  
+  .logo-container {
+    margin-top: 10px;
+    margin-left: 10px;
+  }
+  
+  .logo {
+    width: 100 px; /* Adjust size as needed */
+  }
+  
+
+  .content-wrapper {
+    width: 50%;
+    text-align: center;
+  }
+  
+  .slogan {
+    margin-bottom: 80px;
+  }
+  
+  .buttons {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  button { //spacing 
+    margin-bottom: 80px;
+  }
+  

@@ -65,7 +65,7 @@ export default function RegisterComponent() {
       <div className="google-btn-container">
         <p className="go-to-login">
           Already have an account?{" "}
-          <span className="login-now" onClick={() => navigate("/login")}>
+          <span className="join-now" onClick={() => navigate("/")}>
             Login now
           </span>
         </p>
