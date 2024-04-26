@@ -46,10 +46,14 @@ const Home = () => {
         <div className="buttons">
           <button className="rounded-rect-btn">Questionnaire</button>
           <button className="rounded-rect-btn">Student Search</button>
-          <ConfirmationButton onConfirmation={handleConfirmation} createBlock={createBlock} leaveBlock={leaveBlock} />
-          <JoinBlockForm onJoin={handleJoin} /> {/* Pass handleJoin function to JoinBlockForm */}
-          <CreateBlockForm onCreate={handleCreate} /> {/* Pass handleCreate function to CreateBlockForm */}
-          <LeaveBlockForm onLeave={handleLeave} /> {/* Pass handleLeave function to LeaveBlockForm */}
+          <ConfirmationButton onConfirmation={handleConfirmation} />
+          {showConfirmationOptions && (
+            <>
+              <JoinBlockForm onJoin={joinBlock} />
+              <CreateBlockForm onCreate={createBlock} />
+              <LeaveBlockForm onLeave={leaveBlock} />
+            </>
+          )}
         </div>
       </div>
     </div>
