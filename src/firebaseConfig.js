@@ -28,4 +28,3 @@ const auth = getAuth(app);
 const db = getDatabase(app); // Add this line
 
 export { auth, app, db };
-
