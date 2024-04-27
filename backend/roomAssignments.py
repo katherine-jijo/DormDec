@@ -50,6 +50,7 @@ def assignment(blockID, building, size, room):
         db.child('buildings').child(str(building)).child(str(size)).child(str(room)).set({user.key(): user.val()}) # make a new child labeled by the index and set it to the userID
       else:
         db.child('buildings').child(str(building)).child(str(size)).child(str(room)).update({user.key(): user.val()})
+      db.child('users').child(str(user.val())).update({"roomAssignment": str(building) + " " + str(room)})
     return True
   except:
     print("An error occurred: invalid arguments")
