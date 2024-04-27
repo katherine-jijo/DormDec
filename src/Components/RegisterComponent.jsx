@@ -1,35 +1,35 @@
 import React, { useState } from 'react';
-import { LoginAPI } from '../api/AuthAPI';
-import '../Sass/LoginComponent.scss';
+import { RegisterAPI } from '../api/AuthAPI';
+//import '../Sass/RegisterComponent.scss';
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import DormDecidersLogo from "../assets/dormLogo.png";
 
-export default function LoginComponent() {
+export default function RegisterComponent() {
   let navigate = useNavigate();
   const [credentials, setCredentials] = useState({ email: '', password: '', studentID: '' });
 
-  const login = async () => {
+  const register = async () => {
     try {
-      let res = await LoginAPI(credentials.email, credentials.password, credentials.studentID);
-      toast.success("Signed In to Dorm Deciders!");
+      let res = await RegisterAPI(credentials.email, credentials.password, credentials.studentID);
+      toast.success("Registered Successfully!");
       localStorage.setItem("userEmail", res.user.email);
       navigate("/home");
     } catch (err) {
       console.log(err);
-      toast.error("Please Check your Credentials");
+      toast.error("Registration Failed. Please try again.");
     }
   };
 
   return (
-    <div className="login-wrapper">
-      <div className="login-wrapper-inner">
+    <div className="register-wrapper">
+      <div className="register-wrapper-inner">
 
       <img src={DormDecidersLogo} className="dormLogo" />
 
-      <div className="login-wrapper-inner">
-        <h1 className="heading">Sign in</h1>
-        <p className="sub-heading">Find your Perfect Match!</p>
+      <div className="register-wrapper-inner">
+        <h1 className="heading">Register</h1>
+        <p className="sub-heading">Create your Dorm Deciders Account</p>
 
         <div className="auth-inputs">
           <input
@@ -57,16 +57,16 @@ export default function LoginComponent() {
             placeholder="Hofstra Student ID"
           />
         </div>
-        <button onClick={login} className="login-btn">
-          Sign in
+        <button onClick={register} className="register-btn">
+          Register
         </button>
       </div>
       <hr className="hr-text" data-content="or" />
       <div className="google-btn-container">
-        <p className="go-to-signup">
-          New to Dorm Deciders?{" "}
-          <span className="join-now" onClick={() => navigate("/register")}>
-            Join now
+        <p className="go-to-login">
+          Already have an account?{" "}
+          <span className="join-now" onClick={() => navigate("/")}>
+            Login now
           </span>
         </p>
       </div>
@@ -75,3 +75,4 @@ export default function LoginComponent() {
 
   );
 }
+
