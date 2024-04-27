@@ -2,6 +2,7 @@ import random
 from copy import deepcopy
 import pyrebase
 from blockFunctionality import *
+from roomAssignments import *
 
 firebaseConfig={'apiKey': "AIzaSyBZ_Nnybektn1URt1xv-A6_FTnLJs1adzQ",
   'authDomain': "dorm-deciders.firebaseapp.com",
@@ -304,10 +305,12 @@ def fillBlock(roomType, blockID):
 #Automatically matches together all unassigned blocks to rooms and matches together all remaining students not in blocks
 def dueDateMatching():
     blockList = getAllBlockList()
+    #call room matching function                                                                            #Assign rooms to all pre-existing blocks
+    assignAll()
     for block in blockList:
-        #call room matching function                                                                            #Assign rooms to all pre-existing blocks
-        #db.child('blocks').child(block).remove()                                                                #Delete blocks after they are matched  #DONT UNCOMMENT UNTIL EVERYTHING IS DONE
-        pass
+        
+        db.child('blocks').child(block).remove()                                                                #Delete blocks after they are matched  #DONT UNCOMMENT UNTIL EVERYTHING IS DONE
+        
     
     createPreferenceLists()
     userList = db.child('users').get()
@@ -328,6 +331,12 @@ def dueDateMatching():
         #call room matching function                                                                            #Match new block to rooms
         #db.child('blocks').child(student['userData']['localId']).remove()                                       #Delete the new block once matched to a room   #DONT UNCOMMENT UNTIL EVERYTHING IS DONE
     #for
+    
+    assignAll()
+    blockList = getAllBlockList()
+    for block in blockList:
+        
+        db.child('blocks').child(block).remove()
 
 #TO DO: Test setSelectionPools() by resetting Alliance Hall data - CHECK
 #       Implement the student preference list algorithm - CHECK
@@ -382,4 +391,4 @@ data = {
 db.child("users").child(user['localId']).set(data)
 """
 
-saveStudentInfo()
+#saveStudentInfo()
