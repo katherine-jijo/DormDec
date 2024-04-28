@@ -3,22 +3,28 @@
 
 
 import { db } from '../firebaseConfig.js'; // Import your Firebase database reference
+import { ref, get, set } from "firebase/database"
 
-const createBlock = async (userID) => {
+const createBlock = async (userHofstraID) => {
   try {
-    // Check if the user is already in a block
-    const userRef = db.ref(`users/${userID}`);
-    const userSnapshot = await userRef.once('value');
-    const inBlock = userSnapshot.child('inBlock').val();
+    //const dbRef = ref(getDatabase());
+    var userID = (await get(ref(db, 'localIdStorage/' + userHofstraID.toString()))).val();
 
-    if (inBlock !== '') {
+    //console.log(userID)
+    
+    var inBlock = (await get(ref(db, 'users/' + userID + '/inBlock'))).val();
+    //console.log(inBlock);
+
+    if (inBlock != '') {
+      //console.log(inBlock)
       throw new Error('User is already in a block.');
     }
 
     // Get user's information
-    const userInfoSnapshot = await userRef.once('value');
-    const userName = userInfoSnapshot.child('name').val();
-    const buildingPreference = userInfoSnapshot.child('buildingPreference').val()[0];
+    var buildingPreference = (await get(ref(db, 'users/' + userID + '/buildingPreference'))).val()[0];
+    var userName = (await get(ref(db, 'users/' + userID + '/name'))).val();
+    //console.log(buildingPreference);
+    //console.log(userName);
 
     // Create block data
     const blockData = {
@@ -26,14 +32,13 @@ const createBlock = async (userID) => {
       'Students in Block': [userID],
       'Building': buildingPreference,
     };
+    //console.log(blockData)
 
+    
     // Create the block under the creator's userID
-    await db.ref('blocks').child(userID).set(blockData);
+    await set(ref(db, 'blocks/' + userID), blockData);
 
-    // Update user's info to indicate the block they are in
-    await userRef.update({
-      inBlock: userID,
-    });
+    await set(ref(db, 'users/' + userID + '/inBlock'), userID);
 
     console.log('Block created successfully!');
   } catch (error) {
