@@ -1,0 +1,63 @@
+// Variables for color
+$linkedinBlue1: #0072b1;
+$linkedinBlue2: #0073b1;
+$linkedinBlue3: #004c75;
+
+body {
+  margin: 0;
+  padding: 0;
+  height: 100vh; // Ensures the body takes full viewport height
+  width: 100vw; // Ensures the body takes full viewport width
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.register-wrapper {
+  background-size: cover; // Or 'contain' depending on your preference
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .register-wrapper-inner {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 90%; // Adjust to control the width of the form within the wrapper
+    max-width: 500px; // Sets a max width for the inner wrapper
+    padding-bottom: 30px; // Add padding to bottom if needed for spacing at the bottom
+  }
+
+  .dormLogo { 
+    margin-top: 0; // Adjusted or remove this if not needed
+  }
+
+  .heading {
+    font-family: system-ui;
+    font-weight: 500;
+    color: rgba(0, 0, 0, 0.9);
+  }
+
+  .sub-heading {
+    font-family: system-ui;
+    margin-top: 10px;
+  }
+}
+.register-btn {
+    margin-top: 30px; /* Existing margin top */
+    width: 70%; /* Existing width */
+    max-width: 250px; /* Increased max width for a slightly wider button */
+    height: 45px; /* Increased height for a slightly taller button */
+    cursor: pointer;
+    background-color: $linkedinBlue2;
+    border-radius: 25px; /* Existing border-radius */
+    outline: none;
+    border: none;
+    font-family: system-ui;
+    font-weight: bold;
+}
