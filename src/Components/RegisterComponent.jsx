@@ -57,9 +57,9 @@ export default function RegisterComponent() {
             placeholder="Hofstra Student ID"
           />
         </div>
-        <button onClick={register} className="register-btn">
+        <div onClick={register} className="register-btn">
           Register
-        </button>
+        </div>
       </div>
       <hr className="hr-text" data-content="or" />
       <div className="google-btn-container">
