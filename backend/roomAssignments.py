@@ -178,3 +178,37 @@ def clearAllRooms():
   except:
     print("An error occurred: clearAllRooms()")
     return False
+  
+def printAllRooms():
+  fullOutput = ''
+  try:
+    all_buildings = db.child('buildings').get()
+    for building in all_buildings.each():
+
+      fullOutput += str(building.key()) + ":\n"
+      all_sizes = db.child('buildings').child(str(building.key())).get()
+      for size in all_sizes.each():
+
+        all_rooms = db.child('buildings').child(str(building.key())).child(str(size.key())).get()
+        for room in all_rooms.each():
+
+          fullOutput += str("\tRoom ") + str(room.key()) + ":\n"
+          if room.val() != "":
+            all_people = db.child('buildings').child(str(building.key())).child(str(size.key())).child(str(room.key())).get()
+            for person in all_people.each():
+
+
+              fullOutput += "\t\t" + uidToName(str(person.val())) + "\n"
+    outFile = open("results.txt", "w")
+    outFile.write(fullOutput)
+    outFile.close()
+    return fullOutput
+  except:
+    return False
+
+def uidToName(userID):
+  all_users = db.child('users').get()
+  for user in all_users.each():
+    if user.key() == userID:
+      return db.child('users').child(str(user.key())).child('name').get().val()
+  
