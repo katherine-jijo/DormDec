@@ -9,9 +9,21 @@ from matchingAlgo import db
 from collections.abc import MutableMapping
 import pyrebase
 import collections
-from flask_cors import CORS
+from flask_core import CORS
+import pyrebase
 
+firebaseConfig={'apiKey': "AIzaSyBZ_Nnybektn1URt1xv-A6_FTnLJs1adzQ",
+  'authDomain': "dorm-deciders.firebaseapp.com",
+  'projectId': "dorm-deciders",
+  'storageBucket': "dorm-deciders.appspot.com",
+  'messagingSenderId': "908311322524",
+  'appId': "1:908311322524:web:8d53c41f9b42667a8fb259",
+  'measurementId': "G-V8BYWBGHE6",
+  'databaseURL': "https://dorm-deciders-default-rtdb.firebaseio.com/"}
 
+firebase=pyrebase.initialize_app(firebaseConfig) #Initializes the firebase app
+
+db = firebase.database()
 
 
 app = Flask(__name__)
@@ -59,17 +71,22 @@ def dueDateMatching():
     for block in blockList:
         
         db.child('blocks').child(block).remove()
+    
+    """
     matching_results = []  # This should contain the actual matching results
     # Prepare matching results
     matching_results = []
     for user in userList:
         student = user.val()
+        
         if student['inBlock'] == '':
             matching_results.append({"id": student['userData']['localId'], "name": student['name']})
+            """
+        
 
-    return jsonify({"message": "Due date matching completed successfully", "matching_results": matching_results})
+    #return jsonify({"message": "Due date matching completed successfully", "matching_results": matching_results})
 
-    #return jsonify({"message": "Due date matching completed successfully"})
+    return jsonify({"message": "Due date matching completed successfully"})
 
 
 
