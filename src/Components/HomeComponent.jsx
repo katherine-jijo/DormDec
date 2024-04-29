@@ -15,6 +15,8 @@ const Home = () => {
   const [showConfirmationOptions, setShowConfirmationOptions] = useState(false);
   const [matchingResults, setMatchingResults] = useState([]);
 
+
+  
   const handleConfirmation = () => {
     setShowConfirmationOptions(true);
   };
@@ -37,7 +39,7 @@ const Home = () => {
   };
 
   const handleDueDateMatching = () => {
-    fetch('http://localhost:5000/due_date_matching')
+    fetch('http://localhost:5000/dueDateMatching')
       .then(response => response.json())
       .then(data => {
         console.log(data); // Output the data received from the Flask server
@@ -89,16 +91,18 @@ const Home = () => {
   );
 };
 
-const QuestionnaireButton = () => {
-  const openGoogleForm = () => {
-    window.open('https://docs.google.com/forms/d/e/1FAIpQLScgA-inXShLiwMvLYxTeNf1j24HoeIeJkrNPn1LfcR2OlKndg/viewform?usp=sf_link', '_blank');
-  };
 
-  return (
-    <button className="rounded-rect-btn" onClick={openGoogleForm}>
-      Questionnaire
-    </button>
-  );
+
+const QuestionnaireButton = () => {
+    const openGoogleForm = () => {
+      window.open('https://docs.google.com/forms/d/e/1FAIpQLScgA-inXShLiwMvLYxTeNf1j24HoeIeJkrNPn1LfcR2OlKndg/viewform?usp=sf_link', '_blank');
+    };
+  
+    return (
+      <button className="rounded-rect-btn" onClick={openGoogleForm}>
+        Questionnaire
+      </button>
+    );
 };
 
 export default Home;

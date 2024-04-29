@@ -18,7 +18,8 @@ app = Flask(__name__)
 CORS(app)  # Allow CORS for all routes
 
 
-@app.route('/due_Date_Matching', methods=['GET'])
+
+@app.route('/dueDateMatching', methods=['GET'])
 def dueDateMatching():
     blockList = getAllBlockList()
     #call room matching function                                                                            #Assign rooms to all pre-existing blocks
@@ -58,10 +59,19 @@ def dueDateMatching():
     for block in blockList:
         
         db.child('blocks').child(block).remove()
-    return jsonify({"message": "Due date matching completed successfully"})
+    matching_results = []  # This should contain the actual matching results
+    # Prepare matching results
+    matching_results = []
+    for user in userList:
+        student = user.val()
+        if student['inBlock'] == '':
+            matching_results.append({"id": student['userData']['localId'], "name": student['name']})
 
+    return jsonify({"message": "Due date matching completed successfully", "matching_results": matching_results})
+
+    #return jsonify({"message": "Due date matching completed successfully"})
 
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host='127.0.0.1', port=5000)
