@@ -5,7 +5,6 @@ from collections.abc import MutableMapping
 import pyrebase
 import collections
 from flask_cors import CORS
-import pyrebase
 
 firebaseConfig={'apiKey': "AIzaSyBZ_Nnybektn1URt1xv-A6_FTnLJs1adzQ",
   'authDomain': "dorm-deciders.firebaseapp.com",
