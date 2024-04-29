@@ -353,6 +353,8 @@ def dueDateMatching():
     for block in blockList:
         
         db.child('blocks').child(block).remove()
+    
+    printAllRooms()
 
 #TO DO: Test setSelectionPools() by resetting Alliance Hall data - CHECK
 #       Implement the student preference list algorithm - CHECK
