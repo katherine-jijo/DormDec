@@ -13,6 +13,7 @@ import { useState } from 'react';
               console.error('No such document!');
           }*/
           var userList = (await get(ref(db, 'preferenceLists/' + userHofstraID.toString() + '/topUserList'))).val();
+          //console.log(userList);
           return userList;
 
       } catch (error) {
@@ -23,9 +24,10 @@ import { useState } from 'react';
   export const getUserInfo = async (localIds) => {
       try {
           const users = [];
+          //console.log(localIds)
           for (const localId of localIds) {
-            userName = (await get(ref(db, 'users/' + localId + '/name'))).val();
-            email = (await get(ref(db, 'user/' + localId + '/userData/email'))).val();
+            var userName = (await get(ref(db, 'users/' + localId + '/name'))).val();
+            var email = (await get(ref(db, 'users/' + localId + '/userData/email'))).val();
             users.push( {
               'name' : userName,
               'email' : email
