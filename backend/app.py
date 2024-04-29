@@ -1,11 +1,6 @@
 from flask import Flask, jsonify
-from matchingAlgo import dueDateMatching
-from matchingAlgo import getAllBlockList
-from matchingAlgo import assignAll
-from matchingAlgo import createPreferenceLists
-from matchingAlgo import createBlock
-from matchingAlgo import fillBlock
-from matchingAlgo import db
+from matchingAlgo import *
+from roomAssignments import *
 from collections.abc import MutableMapping
 import pyrebase
 import collections
@@ -71,6 +66,8 @@ def dueDateMatching():
     for block in blockList:
         
         db.child('blocks').child(block).remove()
+
+    printAllRooms()
     
     """
     matching_results = []  # This should contain the actual matching results
