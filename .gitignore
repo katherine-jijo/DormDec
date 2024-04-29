@@ -24,3 +24,5 @@ dist-ssr
 *.sw?
 .eslintrc.js
 backend/__pycache__/*
+clasp/.clasp.json
+
