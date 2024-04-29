@@ -7,6 +7,8 @@ import LeaveBlockForm from './LeaveBlockForm'; // Import the LeaveBlockForm comp
 import joinBlock from './joinBlock'; // Import the joinBlock function
 import createBlock from './createBlock'; // Import the createBlock function
 import leaveBlock from './leaveBlock'; // Import the leaveBlock function
+import StudentSearchButton from './StudentSearchButton'; // Import the StudentSearchButton component
+
 import '../Sass/HomeComponent.scss';
 
 const Home = () => {
@@ -45,7 +47,7 @@ const Home = () => {
         </div>
         <div className="buttons">
           <QuestionnaireButton />
-          <button className="rounded-rect-btn">Student Search</button>
+          <StudentSearchButton /> {/* Include the StudentSearchButton component here */}
           <ConfirmationButton onConfirmation={handleConfirmation} />
           {showConfirmationOptions && (
             <>
@@ -60,7 +62,6 @@ const Home = () => {
   );
 };
 
-
 const QuestionnaireButton = () => {
     const openGoogleForm = () => {
       window.open('https://docs.google.com/forms/d/e/1FAIpQLScgA-inXShLiwMvLYxTeNf1j24HoeIeJkrNPn1LfcR2OlKndg/viewform?usp=sf_link', '_blank');
@@ -71,6 +72,6 @@ const QuestionnaireButton = () => {
         Questionnaire
       </button>
     );
-  };
+};
 
 export default Home;
