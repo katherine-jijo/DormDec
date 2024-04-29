@@ -180,6 +180,20 @@ def clearAllRooms():
     return False
   
 def printAllRooms():
+  """Prints info regarding which students occupy which rooms.
+
+  This is an output function that prints the building name, then each room in
+  the building along with the names of the students in those rooms. This text
+  is sent to results.txt, and the names of the students are translated from IDs
+  to literal names via uidToName().
+
+  Args:
+  
+  Returns:
+    A String with the exact same text as the updated results.txt.
+  Raises:
+  
+  """
   fullOutput = ''
   try:
     all_buildings = db.child('buildings').get()
@@ -207,6 +221,18 @@ def printAllRooms():
     return False
 
 def uidToName(userID):
+  """Converts userIDs to literal names.
+
+  Given an input of a userID, this function parses through the 'users' section
+  of the firebase and finds the name associated with that userID.
+
+  Args:
+    String userID to be converted to string
+  Returns:
+    The name of the student found via userID.
+  Raises:
+  
+  """
   all_users = db.child('users').get()
   for user in all_users.each():
     if user.key() == userID:
