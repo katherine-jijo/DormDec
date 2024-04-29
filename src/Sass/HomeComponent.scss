@@ -1,43 +1,59 @@
 .home-wrapper {
     display: flex;
-    padding: 20px;
     height: 100vh;
-    background-image: url('../assets/homepg.png'); /* Use a relative path */
+    width: 100vw;
+    background-image: url("../assets/homepg.png"); /* Use a relative path */
     background-size: cover;
     background-position: center;
     align-items: flex-start; /* Align items to the top */
+    box-sizing: border-box;
+    overflow-x: hidden;
+    overflow-y: visible;
 }
 
-  
-  .logo-container {
+.logo-container {
     margin-top: 20px;
     margin-left: 20px;
-  }
-  
-  .logo {
-    width: 100 px; /* Adjust size as needed */
-  }
-  
+    margin-right: 20px;
+    min-width: min-content;
+}
 
-  .content-wrapper {
-    width: 90%;
+.logo {
+  @media (min-width: 791px) {
+    max-width: 500px; /* Adjust size as needed */
+    width: 100%; /* Set width to 100% on smaller screens */
+  }
+  @media (max-width: 790px) {
+    display: none;
+  }
+}
+
+.content-wrapper {
+    width: 100%;
     text-align: center;
-  }
-  
-  .slogan {
+}
+
+.slogan {
     margin-bottom: 200x;
-  }
-  .buttons {
+}
+.buttons {
     display: flex;
     flex-direction: column;
     align-items: center;
-  }
-  
-  .rounded-rect-btn {
+}
+
+.rounded-rect-btn {
     background-color: #f0f0f0;
+    margin-left: 50px;
     border: none;
     color: #323;
-    padding: 40px 170px;
+    // padding: 40px 170px;
+    @media (max-width: 500px) {
+      min-width: 360px; /* Adjust size as needed */
+      width: 100%; /* Set width to 100% on smaller screens */
+    }
+    width: 500px;
+    height: 100px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
@@ -45,9 +61,8 @@
     margin: 10px 0;
     cursor: pointer;
     border-radius: 5px; /* Adjust this value to change the roundness */
-  }
-  
-  
-  .buttons button:hover {
+}
+
+.buttons button:hover {
     background-color: #0056b3; /* Change the background color on hover */
-  }
+}
