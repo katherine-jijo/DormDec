@@ -22,6 +22,9 @@ def saveStudentInfo():
     userList = db.child('users').get()
     for userData in userList:
         user = userData.val()
+        
+        #print(user)
+        
         userID = user['userID']
         userQuestionnaire = db.child('studentQuestionnaireResponses').child(str(userID)).get().val()
         user['name'] = userQuestionnaire['user']['name']
@@ -291,31 +294,44 @@ def fillBlock(roomType, blockID):
     elif roomType == "Quad":
         i = 4
     blockList = getBlockStudentList(str(blockID))
-    leader = blockList[0]
-    leaderList = getUserList(leader)
-    j = 0
-    while (len(blockList) != i):
-        if db.child('users').child(leaderList[j]).child('inBlock').get().val() == '':
-            joinBlock(leaderList[j], blockID)
-        j += 1
-        #if
+    if (blockList is not None):
+        leader = blockList[0]
+        leaderList = getUserList(leader)
+        length = len(blockList)
         
-    #while
+        j = 0
+        #print(length)
+        #print(leaderList)
+        if (leaderList is not None):
+            while ((length < i) and (j < len(leaderList))):
+                if (db.child('users').child(leaderList[j]).child('inBlock').get().val() == ''):
+                    joinBlock(leaderList[j], blockID)
+                    length += 1
+                j += 1
+                #if
+            
+            #while
+        #if
 
 #Automatically matches together all unassigned blocks to rooms and matches together all remaining students not in blocks
 def dueDateMatching():
     blockList = getAllBlockList()
     #call room matching function                                                                            #Assign rooms to all pre-existing blocks
     assignAll()
-    for block in blockList:
+    if (len(blockList) > 0):
+        for block in blockList:
         
-        db.child('blocks').child(block).remove()                                                                #Delete blocks after they are matched  #DONT UNCOMMENT UNTIL EVERYTHING IS DONE
+            db.child('blocks').child(block).remove()                                                                #Delete blocks after they are matched  #DONT UNCOMMENT UNTIL EVERYTHING IS DONE
         
     
     createPreferenceLists()
     userList = db.child('users').get()
     for user in userList:                                                                                       #Place remaining students into blocks
         student = user.val()
+        
+        print(student['name'])
+        print(student['inBlock'])
+        
         if (student['inBlock'] != ''):                                                                          #Students already in blocks are already accounted for
             continue
         #if

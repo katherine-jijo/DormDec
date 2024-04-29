@@ -115,7 +115,7 @@ def assignThis(blockID):
       building = db.child('users').child(str(blockID)).child('buildingPreference').get().each()[i].val() #TODO: this is finding it through the block leader's preference
       #print(building)
       availRooms = findAvailableRooms(building, size)
-      if len(availRooms) > 0: 
+      if len(availRooms) == 0: #was >
         break
       assignment(blockID, building, size, availRooms[0])
       return True

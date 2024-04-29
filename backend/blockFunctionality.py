@@ -40,9 +40,12 @@ def createBlock(userID):
 
     else:
         if(str(userID) == db.child('users').child(str(userID)).child('inBlock').get().val()):
-         raise Exception('Block already created')
+         print("Block already created")
         else:
-         raise Exception("User is already in a block; can't create block")
+           
+         #print(userID)
+         print("User is already in a block; can't create block")
+
 
 #Initialize block method
 
@@ -101,8 +104,10 @@ def getBlockStudentList(blockID):
 def getAllBlockList():
    blockArray = []
    blockList = db.child('blocks').get()
-   for block in blockList.each():
-      blockArray.append(block.key())
+   #print(blockList.val())
+   if (blockList.val() is not None):
+      for block in blockList.each():
+         blockArray.append(block.key())
    
    return blockArray
 
