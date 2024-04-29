@@ -23,4 +23,4 @@ dist-ssr
 *.sln
 *.sw?
 .eslintrc.js
-backend/__pycache__/blockFunctionality.cpython-312.pyc
+backend/__pycache__/*
