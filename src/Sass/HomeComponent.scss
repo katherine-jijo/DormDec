@@ -2,13 +2,14 @@
     display: flex;
     height: 100vh;
     width: 100vw;
+    min-width: min-content;
+    min-height: fit-content;
     background-image: url("../assets/homepg.png"); /* Use a relative path */
     background-size: cover;
     background-position: center;
     align-items: flex-start; /* Align items to the top */
     box-sizing: border-box;
-    overflow-x: hidden;
-    overflow-y: visible;
+    overflow: auto;
 }
 
 .logo-container {
@@ -19,18 +20,20 @@
 }
 
 .logo {
-  @media (min-width: 791px) {
-    max-width: 500px; /* Adjust size as needed */
+  @media (min-width: 601px) {
+    max-width: 600px; /* Adjust size as needed */
     width: 100%; /* Set width to 100% on smaller screens */
   }
-  @media (max-width: 790px) {
+  @media (max-width: 600px) {
     display: none;
   }
 }
 
 .content-wrapper {
+    min-width: 400px;
     width: 100%;
     text-align: center;
+    margin-right: 50px;
 }
 
 .slogan {
@@ -44,12 +47,10 @@
 
 .rounded-rect-btn {
     background-color: #f0f0f0;
-    margin-left: 50px;
     border: none;
     color: #323;
-    // padding: 40px 170px;
     @media (max-width: 500px) {
-      min-width: 360px; /* Adjust size as needed */
+      min-width: 400px; /* Adjust size as needed */
       width: 100%; /* Set width to 100% on smaller screens */
     }
     width: 500px;
