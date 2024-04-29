@@ -1,75 +1,39 @@
-import React, { useState, useEffect } from 'react';
-import { db } from '../firebaseConfig.js'; // Import your Firebase database reference
-//import * as firebase from 'f../firebaseConfig.js';
+import { getTopUserList, getUserInfo } from './StudentSearch'; // Correct file path and extension
+import { useState } from 'react';
 
-import 'firebase/auth';
-import 'firebase/database';
+const StudentSearchButton = () => {
+    const [userInfo, setUserInfo] = useState([]);
 
-
-
-
-
- const StudentSearchButton = () => {
-    const [preferences, setPreferences] = useState(null);
-
-    const createPreferenceLists = async () => {
-        const response = await fetch('/runPreferenceLists', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            // Add body data if needed
-        });
-        if (response.ok) {
-            console.log('Preference lists created successfully');
-        } else {
-            console.error('Failed to create preference lists');
+    const handleClick = async () => {
+        try {
+            const topUserList = await getTopUserList('userHofstraID');
+            const users = await getUserInfo(topUserList);
+            setUserInfo(users);
+        } catch (error) {
+            console.error('Error getting user info:', error);
         }
     };
-
-    const getUserPreferences = async () => {
-        const user = firebase.auth().currentUser;
-        if (user) {
-            const userHofstraID = user.uid; // Use the user's UID as the Hofstra ID
-            try {
-                const snapshot = await firebase.database().ref(`preferenceLists/${userHofstraID}/topUserList`).get();
-                if (snapshot.exists()) {
-                    // Convert object to array
-                    const data = snapshot.val();
-                    const preferencesArray = Object.values(data);
-                    setPreferences(preferencesArray);
-                } else {
-                    console.error('No data available');
-                }
-            } catch (error) {
-                console.error('Error getting preference list:', error);
-            }
-        } else {
-            console.error('No user logged in');
-        }
-    };
-    
-
-    useEffect(() => {
-        getUserPreferences();
-    }, []);
 
     return (
-      <div>
-          <button className="rounded-rect-btn" onClick={createPreferenceLists}>
-              Student Search
-          </button>
-          {preferences && (
-              <div>
-                  <h2>Preference List:</h2>
-                  <ul>
-                      {preferences.map((preference, index) => (
-                          <li key={index}>{preference}</li>
-                      ))}
-                  </ul>
-              </div>
-          )}
-      </div>
-  );
+        <div className="student-search">
+            <button className="rounded-rect-btn" onClick={handleClick}>
+                Student Search
+            </button>
+            {userInfo && (
+                <div className="dropdown">
+                    <h2>User Information:</h2>
+                    <ul>
+                        {userInfo.map((user, index) => (
+                            <li key={index}>
+                                Name: {user.name}, User email: {user.userEmail}
+                            </li>
+                        ))}
+                    </ul>
+                </div>
+            )}
+        </div>
+    );
+
 };
+
 export default StudentSearchButton;
