@@ -13,6 +13,7 @@ import '../Sass/HomeComponent.scss';
 
 const Home = () => {
   const [showConfirmationOptions, setShowConfirmationOptions] = useState(false);
+  const [matchingResults, setMatchingResults] = useState([]);
 
   const handleConfirmation = () => {
     setShowConfirmationOptions(true);
@@ -33,6 +34,19 @@ const Home = () => {
   const handleLeave = (userID) => {
     leaveBlock(userID);
     // Additional logic if needed
+  };
+
+  const handleDueDateMatching = () => {
+    fetch('http://localhost:5000/due_date_matching')
+      .then(response => response.json())
+      .then(data => {
+        console.log(data); // Output the data received from the Flask server
+        setMatchingResults(data); // Update the matchingResults state with the data received from the server
+      })
+      .catch(error => {
+        console.error('Error:', error);
+        // Handle any errors that occur during the request
+      });
   };
 
   return (
@@ -56,22 +70,35 @@ const Home = () => {
               <LeaveBlockForm onLeave={leaveBlock} />
             </>
           )}
+          <button className="rounded-rect-btn" onClick={handleDueDateMatching}>
+            Due Date Matching
+          </button>
         </div>
+        {matchingResults.length > 0 && (
+          <div className="matching-results">
+            <h2>Matching Results:</h2>
+            <ul>
+              {matchingResults.map(result => (
+                <li key={result.id}>{result.name}</li>
+              ))}
+            </ul>
+          </div>
+        )}
       </div>
     </div>
   );
 };
 
 const QuestionnaireButton = () => {
-    const openGoogleForm = () => {
-      window.open('https://docs.google.com/forms/d/e/1FAIpQLScgA-inXShLiwMvLYxTeNf1j24HoeIeJkrNPn1LfcR2OlKndg/viewform?usp=sf_link', '_blank');
-    };
-  
-    return (
-      <button className="rounded-rect-btn" onClick={openGoogleForm}>
-        Questionnaire
-      </button>
-    );
+  const openGoogleForm = () => {
+    window.open('https://docs.google.com/forms/d/e/1FAIpQLScgA-inXShLiwMvLYxTeNf1j24HoeIeJkrNPn1LfcR2OlKndg/viewform?usp=sf_link', '_blank');
+  };
+
+  return (
+    <button className="rounded-rect-btn" onClick={openGoogleForm}>
+      Questionnaire
+    </button>
+  );
 };
 
 export default Home;
