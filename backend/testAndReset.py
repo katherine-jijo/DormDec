@@ -19,8 +19,8 @@ db = firebase.database()
 
 #dueDateMatching()
 
-createBlock('Fio73dgxyfcroMf4z7XIQYrUEiv1')
-joinBlock('loFmInurgyarrZD5dg33RSj1jwT2', 'Fio73dgxyfcroMf4z7XIQYrUEiv1')
+#createBlock('Fio73dgxyfcroMf4z7XIQYrUEiv1')
+#joinBlock('loFmInurgyarrZD5dg33RSj1jwT2', 'Fio73dgxyfcroMf4z7XIQYrUEiv1')
 
 
 """
