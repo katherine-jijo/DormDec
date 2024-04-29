@@ -5,7 +5,8 @@ import { db } from "../firebaseConfig";
 // Function to save user data to the database
 export const saveUserData = async (localId, email, studentID) => {
   const userData = {
-    userData : {
+    inBlock : '',
+      userData : {
       localId: localId,
       email: email,
     },

@@ -23,7 +23,7 @@ db = firebase.database()
 #joinBlock('loFmInurgyarrZD5dg33RSj1jwT2', 'Fio73dgxyfcroMf4z7XIQYrUEiv1')
 
 
-"""
+
 buildingList = db.child('buildings').get()
 for building in buildingList.each():
     for roomType in building.val():
@@ -36,4 +36,10 @@ for building in buildingList.each():
                 db.child('buildings').child(building.key()).child(roomType).child(str(i)).set('')
             elif (roomType == 'Triples') and (i % 10 == 3):
                 db.child('buildings').child(building.key()).child(roomType).child(str(i)).set('')
-"""
+
+userList = db.child('users').get()
+for user in userList:
+    userID = user.key()
+    db.child('users').child(userID).child('inBlock').set('')
+    db.child('users').child(userID).child('roomAssignment').set('')
+
