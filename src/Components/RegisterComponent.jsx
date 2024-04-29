@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { RegisterAPI } from '../api/AuthAPI';
-//import '../Sass/RegisterComponent.scss';
+import '../Sass/RegisterComponent.scss';
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import DormDecidersLogo from "../assets/dormLogo.png";
