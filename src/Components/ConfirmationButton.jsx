@@ -13,11 +13,9 @@ const ConfirmationButton = ({ onConfirmation }) => {
   };
 
   return (
-    <div>
       <button className="rounded-rect-btn" onClick={handleConfirmation}>
         Confirmation
       </button>
-    </div>
   );
 };
 
