@@ -1,25 +1,8 @@
-from flask import Flask, request, jsonify
 import random
 from copy import deepcopy
 import pyrebase
 from blockFunctionality import *
 from roomAssignments import *
-
-app = Flask(__name__)
-
-# New endpoint to trigger createPreferenceLists
-@app.route('/runPreferenceLists', methods=['POST'])
-def run_preference_lists():
-    createPreferenceLists()
-    return jsonify({'message': 'Preference lists created successfully'})
-
-if __name__ == '__main__':
-    app.run(debug=True)
-
-
-
-
-####
 
 
 firebaseConfig={'apiKey': "AIzaSyBZ_Nnybektn1URt1xv-A6_FTnLJs1adzQ",
