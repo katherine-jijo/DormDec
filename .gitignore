@@ -22,4 +22,5 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
-eslintrc.js
+.eslintrc.js
+backend/__pycache__/blockFunctionality.cpython-312.pyc
