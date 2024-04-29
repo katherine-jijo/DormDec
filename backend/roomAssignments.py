@@ -179,6 +179,24 @@ def clearAllRooms():
     print("An error occurred: clearAllRooms()")
     return False
   
+def uidToName(userID):
+  """Converts userIDs to literal names.
+
+  Given an input of a userID, this function parses through the 'users' section
+  of the firebase and finds the name associated with that userID.
+
+  Args:
+    String userID to be converted to string
+  Returns:
+    The name of the student found via userID.
+  Raises:
+  
+  """
+  all_users = db.child('users').get()
+  for user in all_users.each():
+    if user.key() == userID:
+      return db.child('users').child(str(user.key())).child('name').get().val()
+    
 def printAllRooms():
   """Prints info regarding which students occupy which rooms.
 
@@ -220,21 +238,3 @@ def printAllRooms():
   except:
     return False
 
-def uidToName(userID):
-  """Converts userIDs to literal names.
-
-  Given an input of a userID, this function parses through the 'users' section
-  of the firebase and finds the name associated with that userID.
-
-  Args:
-    String userID to be converted to string
-  Returns:
-    The name of the student found via userID.
-  Raises:
-  
-  """
-  all_users = db.child('users').get()
-  for user in all_users.each():
-    if user.key() == userID:
-      return db.child('users').child(str(user.key())).child('name').get().val()
-  
