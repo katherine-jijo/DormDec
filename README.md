@@ -11,10 +11,10 @@ Dorm Deciders is a web application designed to enhance the dormitory experience 
 
 ## Technologies Used
 
-Frontend: React.js
-Backend: Flask (Python)
-Database: Firebase Realtime Database
-Styling: Sass
+- Frontend: React.js
+- Backend: Flask (Python)
+- Database: Firebase Realtime Database
+- Styling: Sass
 
 ## Installation
 
