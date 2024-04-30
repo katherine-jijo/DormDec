@@ -18,14 +18,14 @@ Dorm Deciders is a web application designed to enhance the dormitory experience 
 
 ## Installation
 
-Clone the repository: git clone https://github.com/katherine-jijo/dorm-deciders.git
-Navigate to the project directory: cd dormdec
-Install dependencies: npm install
+- Clone the repository: git clone https://github.com/katherine-jijo/dorm-deciders.git
+- Navigate to the project directory: cd dormdec
+- Install dependencies: npm install
 
 ## Usage
 
-Start the frontend development server: npm run dev
-Start the backend server : flask run
-Access the application in your browser at: http://localhost:3000
+- Start the frontend development server: npm run dev
+- Start the backend server : flask run
+- Access the application in your browser at: http://localhost:3000
 
 
