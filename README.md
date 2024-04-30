@@ -4,25 +4,25 @@ Dorm Deciders is a web application designed to enhance the dormitory experience 
 
 ## Features
 
-# Questionnaire: 
-Students can fill out a questionnaire to provide information about their preferences, habits, and lifestyle.
-# Matchmaking: 
-The application uses a matching algorithm to pair students with compatible roommates based on their questionnaire responses.
-Confirmation: Once a match is found, students can confirm their roommate selection and proceed with dorm arrangements.
-Join/Create/Leave Blocks: Students can join existing roommate blocks, create new blocks, or leave blocks as needed.
-Technologies Used
+- Questionnaire: Students can fill out a questionnaire to provide information about their preferences, habits, and lifestyle.
+- Matchmaking: The application uses a matching algorithm to pair students with compatible roommates based on their questionnaire responses.
+- Confirmation: Once a match is found, students can confirm their roommate selection and proceed with dorm arrangements.
+- Join/Create/Leave Blocks: Students can join existing roommate blocks, create new blocks, or leave blocks as needed.
+
+## Technologies Used
 
 Frontend: React.js
 Backend: Flask (Python)
 Database: Firebase Realtime Database
 Styling: Sass
-Installation
+
+## Installation
 
 Clone the repository: git clone https://github.com/katherine-jijo/dorm-deciders.git
 Navigate to the project directory: cd dormdec
 Install dependencies: npm install
 
-Usage
+## Usage
 
 Start the frontend development server: npm run dev
 Start the backend server : flask run
