@@ -16,9 +16,8 @@ export default function LoginComponent() {
                 toast.success("Signed In to Dorm Deciders!");
                 localStorage.setItem("userEmail", res.user.email);
                 navigate("/home");
-            } else {
-                toast.error("Please Check your Credentials");
-            }
+            } 
+            else throw err;
         } catch (err) {
             console.log(err);
             toast.error("Please Check your Credentials");

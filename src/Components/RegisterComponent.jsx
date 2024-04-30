@@ -12,7 +12,7 @@ export default function RegisterComponent() {
     const register = async () => {
         try {
             let res = await RegisterAPI(credentials.email, credentials.password, credentials.studentID);
-            if (res.success){
+            if (res.user){
                 toast.success("Registered Successfully!");
                 localStorage.setItem("userEmail", res.user.email);
                 navigate("/home");
