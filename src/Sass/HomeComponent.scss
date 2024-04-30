@@ -20,13 +20,13 @@
 }
 
 .logo {
-  @media (min-width: 601px) {
-    max-width: 600px; /* Adjust size as needed */
-    width: 100%; /* Set width to 100% on smaller screens */
-  }
-  @media (max-width: 600px) {
-    display: none;
-  }
+    @media (min-width: 601px) {
+        max-width: 600px; /* Adjust size as needed */
+        width: 100%; /* Set width to 100% on smaller screens */
+    }
+    @media (max-width: 600px) {
+        display: none;
+    }
 }
 
 .content-wrapper {
@@ -50,8 +50,8 @@
     border: none;
     color: #323;
     @media (max-width: 500px) {
-      min-width: 400px; /* Adjust size as needed */
-      width: 100%; /* Set width to 100% on smaller screens */
+        min-width: 400px; /* Adjust size as needed */
+        width: 100%; /* Set width to 100% on smaller screens */
     }
     width: 500px;
     height: 100px;
@@ -67,3 +67,4 @@
 .buttons button:hover {
     background-color: #0056b3; /* Change the background color on hover */
 }
+

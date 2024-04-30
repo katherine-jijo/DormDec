@@ -30,15 +30,19 @@ const StudentSearchButton = () => {
         <div className="student-search">
             {!showInput && (
                 <button className="rounded-rect-btn" onClick={handleEnterID}>
-Student Search                </button>
+                    Student Search
+                </button>
             )}
             {showInput && (
-                <div className="input-box">
-                    <input type="text" value={UserhofstraID} onChange={handleChange} placeholder="Enter Hofstra ID" />
+                <><div>
                     <button className="rounded-rect-btn" onClick={handleClick}>
                         Confirm
                     </button>
-                </div>
+                </div><div>
+                        <div className="input-box">
+                            <input type="text" value={UserhofstraID} onChange={handleChange} placeholder="Enter Hofstra ID" />
+                        </div>
+                    </div></>
             )}
             {userInfo && (
                 <div className="dropdown">
