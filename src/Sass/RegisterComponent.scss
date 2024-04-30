@@ -14,27 +14,24 @@ body {
 }
 
 .register-wrapper {
-  background-size: cover; // Or 'contain' depending on your preference
+  background-size: cover; /* or 'contain' depending on your preference */
   background-repeat: no-repeat;
   background-position: center;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  height: 100vh;
+  width: 100vw;
+  min-width: 469px;
 
   .register-wrapper-inner {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: 90%; // Adjust to control the width of the form within the wrapper
-    max-width: 500px; // Sets a max width for the inner wrapper
-    padding-bottom: 30px; // Add padding to bottom if needed for spacing at the bottom
+      height: 100%;
   }
 
   .dormLogo { 
-    margin-top: 0; // Adjusted or remove this if not needed
+    margin-top: 30px;
+    margin-bottom: -30px;
   }
 
   .heading {
@@ -44,20 +41,55 @@ body {
   }
 
   .sub-heading {
+    margin-top: -20px;
     font-family: system-ui;
-    margin-top: 10px;
   }
 }
+
 .register-btn {
-    margin-top: 30px; /* Existing margin top */
-    width: 70%; /* Existing width */
-    max-width: 250px; /* Increased max width for a slightly wider button */
-    height: 45px; /* Increased height for a slightly taller button */
-    cursor: pointer;
-    background-color: $linkedinBlue2;
-    border-radius: 25px; /* Existing border-radius */
-    outline: none;
-    border: none;
+  width: 300px;
+  height: 50px;
+  cursor: pointer;
+  background-color: $linkedinBlue2;
+  border-radius: 30px;
+  outline: none;
+  border: none;
+  font-family: system-ui;
+  font-weight: 600;
+  color: #ffffff;
+  font-size: 18px;
+  margin-top: 20px;
+}
+
+.register-btn:hover {
+  background-color: $linkedinBlue3;
+}
+
+.auth-inputs {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 300px;
+}
+
+.google-btn-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  .google-btn {
+    width: 300px !important;
+  }
+
+  .go-to-login {
+    font-size: 18px;
+  }
+
+  .register-btn {
+    color: $linkedinBlue1;
     font-family: system-ui;
-    font-weight: bold;
+    cursor: pointer;
+    font-size: 18px;
+  }
 }

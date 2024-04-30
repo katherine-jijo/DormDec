@@ -12,9 +12,13 @@ export default function LoginComponent() {
     const login = async () => {
         try {
             let res = await LoginAPI(credentials.email, credentials.password, credentials.studentID);
-            toast.success("Signed In to Dorm Deciders!");
-            localStorage.setItem("userEmail", res.user.email);
-            navigate("/home");
+            if (res.user) {
+                toast.success("Signed In to Dorm Deciders!");
+                localStorage.setItem("userEmail", res.user.email);
+                navigate("/home");
+            } else {
+                toast.error("Please Check your Credentials");
+            }
         } catch (err) {
             console.log(err);
             toast.error("Please Check your Credentials");

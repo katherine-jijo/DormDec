@@ -5,6 +5,11 @@ $linkedinBlue3: #004c75;
 body {
   margin: 0;
   padding: 0;
+  height: 100vh; // Ensures the body takes full viewport height
+  width: 100vw; // Ensures the body takes full viewport width
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .login-wrapper {
