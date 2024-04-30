@@ -1,22 +1,29 @@
-# React + Vite
+##Description
+
+Dorm Deciders is a web application designed to enhance the dormitory experience for students. It provides a platform for students to find compatible roommates based on a variety of preferences and criteria. From questionnaire to match to confirmation, Dorm Deciders simplifies the process of finding a roommate, making dorm life more enjoyable and stress-free.
+
+##Features
+
+Questionnaire: Students can fill out a questionnaire to provide information about their preferences, habits, and lifestyle.
+Matchmaking: The application uses a matching algorithm to pair students with compatible roommates based on their questionnaire responses.
+Confirmation: Once a match is found, students can confirm their roommate selection and proceed with dorm arrangements.
+Join/Create/Leave Blocks: Students can join existing roommate blocks, create new blocks, or leave blocks as needed.
+Technologies Used
+
+Frontend: React.js
+Backend: Flask (Python)
+Database: Firebase Realtime Database
+Styling: Sass
+Installation
+
+Clone the repository: git clone https://github.com/katherine-jijo/dorm-deciders.git
+Navigate to the project directory: cd dormdec
+Install dependencies: npm install
+
+Usage
+
+Start the frontend development server: npm run dev
+Start the backend server : flask run
+Access the application in your browser at: http://localhost:3000
 
 
-to run this: 
-
--clone the repo 
--you can use a virtual env if you want but it gave me too many problems so now i am just downloading everything to my computer 
-- run this to get reqs to be able to run -->   pip install -r requirements.txt  (should be all the packages you need, if not terminal say what you are missing 
--then in computer terminal or vscode terminal once you are in the project folder run --> npm install then run npm run dev 
--copy and paste localhost link to chrome 
-
-
-
-
-
------ random 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
-
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
