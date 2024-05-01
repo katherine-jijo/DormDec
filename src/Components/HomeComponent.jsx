@@ -8,7 +8,8 @@ import joinBlock from "./joinBlock"; // Import the joinBlock function
 import createBlock from "./createBlock"; // Import the createBlock function
 import leaveBlock from "./leaveBlock"; // Import the leaveBlock function
 import StudentSearchButton from "./StudentSearchButton"; // Import the StudentSearchButton component
-
+import { db } from '../firebaseConfig.js'; // Import your Firebase database reference
+import { ref, get } from "firebase/database";
 import "../Sass/HomeComponent.scss";
 
 const Home = () => {
@@ -17,6 +18,7 @@ const Home = () => {
     //for see room button
     const [showInput, setShowInput] = useState(false);
     const [UserhofstraID, setUserhofstraID] = useState("");
+    const [roomAssignment, setRoomAssignment] = useState('');
     const handleChange = (event) => {
         setUserhofstraID(event.target.value);
     };
@@ -60,7 +62,7 @@ const Home = () => {
         setShowInput(true);
     };
 
-    const handleClick = () => {
+    const handleClick = async () => {
         // Your logic here to handle the user input
         console.log("User Hofstra ID:", UserhofstraID);
 
@@ -69,6 +71,10 @@ const Home = () => {
         //setShowInput(false);
 
         // Make a Firebase call to fetch the user's data here i think???
+        var userID = (await get(ref(db, 'localIdStorage/' + UserhofstraID.toString()))).val();
+        var roomNum = (await get(ref(db, 'users/' + userID + '/roomAssignment'))).val();
+        setRoomAssignment('Room assignment is: ' + roomNum);
+
     };
     return (
         <div className="home-wrapper">
@@ -123,16 +129,14 @@ const Home = () => {
                                 </div>
                             </>
                         )}
+                        {roomAssignment && (
+                            <div>
+                                <h2>Room information:</h2>
+                                <ul>{roomAssignment}</ul>
+                            </div>
+                        )}
                     </div>
-                    <div className="matching-results drop down ">
-                        <ul>
-                            {matchingResults.map((result, index) => (
-                                <li key={index}>
-                                    Name: {result.name}, Room: {result.room}
-                                </li>
-                            ))}
-                        </ul>
-                    </div>
+                    
                 </div>
             </div>
         </div>

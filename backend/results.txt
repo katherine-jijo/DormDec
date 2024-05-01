@@ -1,16 +1,16 @@
 Alliance Hall:
 	Room 102:
 		Guy FromFortnite
-		Strawhat Luffy
+		Kirby Nintendo
 	Room 112:
 		Luigi Mario
-		Mario Mario
+		Testy Tester
 	Room 122:
 		Nico Robin
 		Zelda Hyrule
 	Room 132:
 		Avatar Aang
-		Sora McDisney
+		Strawhat Luffy
 	Room 142:
 		MJ Watson
 		Tifa Lockheart
@@ -24,13 +24,17 @@ Alliance Hall:
 		Kairi McYensid
 		Peni Parker
 	Room 182:
+		Mario Mario
+		Peter Parker
+	Room 192:
 		Waffles Dadapon
 		Jon Salmon
-	Room 192:
-		Ren Amamiya
-		Peter Parker
 	Room 202:
+		Avatar Korra
+		Testa Tester
 	Room 212:
+		Sora McDisney
+		Ren Amamiya
 	Room 222:
 	Room 232:
 	Room 242:
@@ -80,17 +84,14 @@ Alliance Hall:
 	Room 384:
 	Room 394:
 	Room 101:
-		Testy Tester
-	Room 111:
-		Testa Tester
-	Room 121:
 		Jeff Scotch
-	Room 131:
+	Room 111:
 		Imnot Binary
-	Room 141:
-		Avatar Korra
-	Room 151:
+	Room 121:
 		Logan Stkrdknmibalz
+	Room 131:
+	Room 141:
+	Room 151:
 	Room 161:
 	Room 171:
 	Room 181:
